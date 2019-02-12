@@ -97,20 +97,22 @@ class Launcher {
     rec((width/2)-125, 50, (width/2)+125, height-25, color(230));
     rec(80, 55, 320, 200, 100);
     line(80, 210, 320, 210);
-    rec(80, 220, 320, 240, 100);
-    rec(80, 250, 210, 365, 100);
-    Button select = new Button(90, 335, 200, 355, 80);
+    rec(80, 220, 320, 240, 255);
+    rec(80, 250, 210, 365, 255);
+    Button select = new Button(90, 335, 200, 355, color(100,150,180));
     select.render();
     println(select.pressed);
+    Dropdown d = new Dropdown(220,250,320,270,resList,100);
+    d.render();
   }
   
   void mousePressed() {
   }
 
   int endX() {
-    return(resXList[7]);
+    return(resXList[3]);
   }
   int endY() {
-    return(resYList[7]);
+    return(resYList[3]);
   }
 }
