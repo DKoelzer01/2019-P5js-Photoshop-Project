@@ -1,12 +1,17 @@
 import java.io.*;
 import java.lang.Math.*;
 
+MainScreen m = new MainScreen();
 Launcher l = new Launcher();
 
+int wtemp;
+int htemp;
 int w = 400;
 int h = 400;
+String Stage;
 
 void setup() {
+  Stage = "Launcher";
   float w1 = displayWidth;
   float h1 = displayHeight;
   surface.setResizable(true);
@@ -16,7 +21,10 @@ void setup() {
 
 void draw() {
   surface.setSize(w, h);
+  if (Stage == "Launcher")
     l.render();
+  if (Stage == "Main")
+    m.render();
 }
 
 void rec(int x1, int y1, int x2, int y2, color c) {
@@ -26,10 +34,9 @@ void rec(int x1, int y1, int x2, int y2, color c) {
   fill(255);
 }
 
-void dropbox() {
-}
-
-void keyPressed() {
-  w = l.endX();
-  h = l.endY();
+void startProg() {
+  w = wtemp;
+  h = htemp;
+  clear();
+  Stage = "Main";
 }
