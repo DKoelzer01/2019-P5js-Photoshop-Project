@@ -66,6 +66,7 @@ class Button {
     }
     render(func, obj);
     rec(this.x1, this.y1, this.x2, this.y2, img, 100);
+    
   }
 
   void render(String func) {

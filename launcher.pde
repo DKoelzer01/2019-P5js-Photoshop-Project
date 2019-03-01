@@ -1,9 +1,8 @@
 class Launcher {
 
   String[] resList;
-  Integer[] resXList;
-  Integer[] resYList;
-  int cur;
+  Integer[] resXList, resYList, x1, x2, y1, y2, red, green, blue;
+  int cur, lines;
   Dropdown d;
   Button select;
 
@@ -118,8 +117,25 @@ class Launcher {
       resYList[7] = 2160;
       break;
     }
-    d = new Dropdown(220, 250, 320, 270, resList, 100,null);
+    d = new Dropdown(220, 250, 320, 270, resList, 100, null);
     select = new Button(90, 335, 200, 355, color(100, 150, 180));
+    lines = round(random(5, 20));
+    red = new Integer[lines];
+    green = new Integer[lines];
+    blue = new Integer[lines];
+    x1 = new Integer[lines];
+    x2 = new Integer[lines];
+    y1 = new Integer[lines];
+    y2 = new Integer[lines];
+    for (int i = 0; i < lines; i++) {
+      red[i] = round(random(0, 255));
+      blue[i] = round(random(0, 255));
+      green[i] = round(random(0, 255));
+      x1[i] = round(random(80, 320));
+      y1[i] = round(random(55, 200));
+      x2[i] = round(random(80, 320));
+      y2[i] = round(random(55, 200));
+    }
   }
 
 
@@ -127,17 +143,22 @@ class Launcher {
     background(200);
     rec(-1, -1, width, 20, color(230));
     rec((width/2)-125, 50, (width/2)+125, height-25, color(230));
-    rec(80, 55, 320, 200, 100);
+    rec(80, 55, 320, 200, 0);
+    for (int i = 0; i < lines; i++) {
+      stroke(red[i], green[i], blue[i]);
+      line(x1[i], y1[i], x2[i], y2[i]);
+    }
+    stroke(0);
     line(80, 210, 320, 210);
     rec(80, 220, 320, 240, 255);
     fill(0);
-    text("Stunning Octo Sniffle", 142,236);
+    text("Stunning Octo Sniffle", 142, 236);
     rec(80, 250, 210, 365, 255);
 
     select.render("startProg");
     select.txt("Start");
 
-    d.render("Resolution",this);
+    d.render("Resolution", this);
 
     fill(0);
     text("Selected Resolution : ", 90, 280);

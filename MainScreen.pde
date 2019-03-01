@@ -2,18 +2,20 @@ class MainScreen {
   Dropdown file;
   Dropdown edit;
   Dropdown filter;
-  PImage[] Tools = new PImage[8];
-  String[] ToolsFuncs = {"transform","boxselect","brush","colorpicker","eraser","gradient","wand","textbox"};
-
   Toolbar t;
   Canvas c;
+  Layer layer;
+  Filters f;
+  PImage[] Tools = new PImage[11];
+  String[] ToolsFuncs = {"transform", "boxselect", "brush", "colorpicker", "eraser", "gradient", "wand", "textbox", "recT", "elli", "poly"};
   String[] filea = new String[] {"Open", "Save", "New", "Exit"};
   String[] edita= new String[] {"Transform", "Paste", "Fill"};
-  String[] filtera = new String[] {"Radial Blur", "Color Filter", "Average", "Invert", "Greyscale"};
-  String[] fileFuncs = new String[] {"open","commit","newFile","quit"};
-  String[] editFuncs = new String[] {"trans","paste","selectionFill"};
-  String[] filterFuncs = new String[] {"blur","filt","averageFilter","invert","greyscale"};
-  
+  String[] filtera = new String[] {"Radial Blur", "Color Filter", "Average", "Invert", "Greyscale","Mirror X","Mirror Y","Red Overlay","Green Overlay","Blue Overlay","Rotate"};
+  String[] fileFuncs = new String[] {"open", "commit", "newFile", "quit"};
+  String[] editFuncs = new String[] {"trans", "paste", "selectionFill"};
+  String[] filterFuncs = new String[] {"blur", "filt", "averageFilter", "invert", "greyscale","mirrorXF","mirrorYF","fred","fgreen","fblue","rotat"};
+
+
   void MainScreenSetup() {
     Tools[0] = loadImage("assets/Transform.PNG");
     Tools[1] = loadImage("assets/BoxSelect.PNG");
@@ -23,20 +25,43 @@ class MainScreen {
     Tools[5] = loadImage("assets/Gradient.PNG");
     Tools[6] = loadImage("assets/MagicWand.PNG");
     Tools[7] = loadImage("assets/Text.PNG");
+    Tools[8] = loadImage("assets/rec.PNG");
+    Tools[9] = loadImage("assets/ellipse.PNG");
+    Tools[10] = loadImage("assets/poly.PNG");
     this.c = new Canvas();
-    this.t = new Toolbar(Tools,ToolsFuncs);
+    this.t = new Toolbar(Tools, ToolsFuncs);
     this.file = new Dropdown(5, 5, 35, 20, filea, 180, fileFuncs);
     this.edit = new Dropdown(40, 5, 70, 20, edita, 180, editFuncs);
     this.filter = new Dropdown(75, 5, 115, 20, filtera, 180, filterFuncs);
+    thread("layerSetupDumbThing");
+    f = new Filters();
+    m.c.objs.add(new Thing());
   }
 
   void render() {
-    background(120);
-    rec(0, 0, width-1, 30, 200);
-    t.render();
-    file.render("File",i);
-    edit.render("Edit",m);
-    filter.render("Filter",f);
-    c.render();
+    try {
+      layerx = true;
+      background(120);
+      rec(0, 0, width-1, 30, 200);
+      layer.render();
+      c.render();
+      t.render();
+      f.render();
+      file.render("File", i);
+      edit.render("Edit", m);
+      filter.render("Filter", f);
+    } 
+    catch(Exception e) {
+    }
+    if (frameRate > 40) {
+      fill(0, 255, 0);
+    } else if (frameRate > 20) {
+      fill(255, 255, 0);
+    } else {
+      fill(255, 0, 0);
+    }
+    text(round(frameRate), width-30, 16);
+    noStroke();
+    rec(width-90,40,width-10,120,loadImage("assets/rgb.png"),100);
   }
 }
