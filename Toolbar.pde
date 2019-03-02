@@ -31,7 +31,6 @@ class Toolbar {
     for (int i = 0; i < Tools.size(); i++) {
       Tools.get(i).render(this.sprites[i], toolsFuncs[i], this);
     }
-    toolWrapper();
   }
 
   void toolWrapper() {
@@ -40,6 +39,12 @@ class Toolbar {
       if (mousePressed && !m.t.ctrl) {
         (m.c.objs.get(m.layer.curLayer).x1) = mouseX - m.c.w;
         (m.c.objs.get(m.layer.curLayer).y1) = mouseY - m.c.h;
+      }
+      if (keyCode == ENTER) {
+        keyCode = 0;
+        trans = false;
+        PImage temp = m.c.objs.get(m.layer.curLayer).img.get(m.c.dx,m.c.dy,m.c.w,m.c.h);
+        m.c.objs.get(m.layer.curLayer).img = temp;
       }
     }
     if (sel) {

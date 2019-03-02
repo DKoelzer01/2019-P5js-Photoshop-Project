@@ -1,5 +1,6 @@
 Frame main = new Frame(this);
 
+import java.util.concurrent.*;
 import java.io.*;
 import java.lang.Math.*;
 import java.lang.reflect.*;
@@ -8,7 +9,8 @@ MainScreen m = new MainScreen();
 Launcher l = new Launcher();
 
 IO i = new IO();
-
+String file;
+int k = 0;
 ArrayList<Button> buttons = new ArrayList();
 ArrayList<Integer> buttonHov = new ArrayList();
 String sel;
@@ -20,7 +22,7 @@ int w = 400;
 int h = 400;
 String Stage;
 float ix, iy, iw, ih, d1, d2;
-
+int s = 0;
 void setup() {
   Stage = "Launcher";
   float w1 = displayWidth;
@@ -32,11 +34,24 @@ void setup() {
 }
 
 void draw() {
-  surface.setSize(w, h);
-  if (Stage == "Launcher")
+
+  if (Stage == "Launcher") {
+    surface.setSize(w, h);
     l.render();
-  if (Stage == "Main")
+  }
+  if (Stage == "Main") {
+    surface.setSize(w, h);
     m.render();
+    if (k == 0) {
+      k++;
+      m.lay.yee = true;
+    }
+    if (s == 1) {
+      s = 0;
+      canvasImg = get(m.c.dx, m.c.dy, m.c.w, m.c.h);
+      canvasImg.save(file);
+    }
+  }
 }
 
 void rec(int x1, int y1, int x2, int y2, color c) {
@@ -60,14 +75,14 @@ void startProg() {
 }
 
 void mouseClicked() {
-  try {
-    for (int i = 0; i < buttonHov.size(); i++) {
-      if (buttonHov.get(i) == 1) {
-        buttons.get(i).pressed = true;
-      } else {
-        buttons.get(i).pressed = false;
-      }
+  for (int i = 0; i < buttonHov.size(); i++) {
+    if (buttonHov.get(i) == 1) {
+      buttons.get(i).pressed = true;
+    } else {
+      buttons.get(i).pressed = false;
     }
+  }
+  try {
     if (l.d.drop.pressed) {
       l.d.toggleT = true;
     }
@@ -141,15 +156,7 @@ void fileSaved(File selection) {
   if (selection == null) {
     println("No file selected");
   } else {
-    canvasImg = get(m.c.dx, m.c.dy, m.c.w, m.c.h); 
-    canvasImg.save(selection.getAbsolutePath()+".jpg");
+    file = selection.getAbsolutePath() + ".jpg";
+    s = 1;
   }
-}
-
-void layerSetupDumbThing() {
-  while (layerx == false) {
-    delay(5);
-  }
-  m.c.setSize(width/2, height/2); 
-  m.layer = new Layer();
 }

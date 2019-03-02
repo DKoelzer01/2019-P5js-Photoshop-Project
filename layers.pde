@@ -1,26 +1,25 @@
 class Layer {
   PImage cur;
-  color col,colp;
+  color col, colp;
   Button newLayer;
   ArrayList<Button> butt = new ArrayList();
   int curLayer = 0;
-  
+
   Layer() {
-    newLayer = new Button(90, 30, 60, 60, 140,loadImage("assets/plus.PNG"));
+    newLayer = new Button(width-90, height-30, width-70, height-10, 140, loadImage("assets/plus.PNG"));
   }
 
   void render() {
-    text("Layer: " + curLayer,width-90, 20);
-    newLayer.render("addLayer", m.layer);
     rec(width-100, 30, width, height, 100);
+    newLayer.render(loadImage("assets/plus.PNG"),"addLayer",m.layer);
+    text("Layer: " + curLayer, width-90, 20);
     int count = m.c.objs.size();
     buttonCheck();
     for (int i = 0; i < count; i++) {
-      butt.get(i).render();
-      butt.get(i).txt("Layer "+(i+1));
-    }
-    for (int i = 0; i < butt.size();i++) {
-      if(butt.get(i).pressed) {
+      Button b = butt.get(i);
+      b.render();
+      b.txt("Layer "+(i+1));
+      if (b.pressed) {
         curLayer = i;
       }
     }

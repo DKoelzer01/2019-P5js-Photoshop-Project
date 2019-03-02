@@ -1,81 +1,76 @@
 class RadialBlur {
   float[] close= new float [27];
-  color[] temp;
-  color[] temp2;
-  color[] temp3;
-  color[] img;
+  PImage temp,temp2,img;
   PImage out = new PImage();
   int input;
   
   PImage exe(PImage in, int i) {
     this.input = i;
     in.loadPixels();
-    this.img = in.pixels;
-    temp = new color[img.length];
-    temp2 = new color[img.length];
-    temp3 = img;
-    temp2 = blur(input, temp3);
-    out.pixels = temp2;
+    this.img = in;
+    temp = new PImage(img.width,img.height);
+    temp2 = new PImage(img.width,img.height);
+    temp2 = blur(input, img);
     return(out);
   }
-  color[] blur(int p, color[] temp4) {
+  PImage blur(int p, PImage temp3) {
     for (int i=width+1; i<(width*height); i++) {
       int n=0;
-      if (i > width && (i+width) < temp4.length && i%width != 0 && (i+1) % width != 0) {
+      if (i > width && (i+width) < temp3.pixels.length && i%width != 0 && (i+1) % width != 0) {
 
-        close[n]= red(temp4[i-width-1]);
+        close[n]= red(temp3.pixels[i-width-1]);
         n=n+1;
-        close[n]= green(temp4[i-width-1]);
+        close[n]= green(temp3.pixels[i-width-1]);
         n=n+1;
-        close[n]= blue(temp4[i-width-1]);
+        close[n]= blue(temp3.pixels[i-width-1]);
         n=n+1;
-        close[n]= red(temp4[i-width-0]);
+        close[n]= red(temp3.pixels[i-width-0]);
         n=n+1;
-        close[n]= green(temp4[i-width-0]);
+        close[n]= green(temp3.pixels[i-width-0]);
         n=n+1;
-        close[n]= blue(temp4[i-width-0]);
+        close[n]= blue(temp3.pixels[i-width-0]);
         n=n+1;
-        close[n]= red(temp4[i-width+1]);
+        close[n]= red(temp3.pixels[i-width+1]);
         n=n+1;
-        close[n]= green(temp4[i-width+1]);
+        close[n]= green(temp3.pixels[i-width+1]);
         n=n+1;
-        close[n]= blue(temp4[i-width+1]);
+        close[n]= blue(temp3.pixels[i-width+1]);
         n=n+1;
-        close[n]= red(temp4[i-1]);
+        close[n]= red(temp3.pixels[i-1]);
         n=n+1;
-        close[n]= green(temp4[i-1]);
+        close[n]= green(temp3.pixels[i-1]);
         n=n+1;
-        close[n]= blue(temp4[i-1]);
+        close[n]= blue(temp3.pixels[i-1]);
         n=n+1;
-        close[n]= red(temp4[i]);
+        close[n]= red(temp3.pixels[i]);
         n=n+1;
-        close[n]= green(temp4[i]);
+        close[n]= green(temp3.pixels[i]);
         n=n+1;
-        close[n]= blue(temp4[i]);
+        close[n]= blue(temp3.pixels[i]);
         n=n+1;
-        close[n]= red(temp4[i+1]);
+        close[n]= red(temp3.pixels[i+1]);
         n=n+1;
-        close[n]= green(temp4[i+1]);
+        close[n]= green(temp3.pixels[i+1]);
         n=n+1;
-        close[n]= blue(temp4[i+1]);
+        close[n]= blue(temp3.pixels[i+1]);
         n=n+1;
-        close[n]= red(temp4[i+width-1]);
+        close[n]= red(temp3.pixels[i+width-1]);
         n=n+1;
-        close[n]= green(temp4[i+width-1]);
+        close[n]= green(temp3.pixels[i+width-1]);
         n=n+1;
-        close[n]= blue(temp4[i+width-1]);
+        close[n]= blue(temp3.pixels[i+width-1]);
         n=n+1;
-        close[n]= red(temp4[i+width]);
+        close[n]= red(temp3.pixels[i+width]);
         n=n+1;
-        close[n]= green(temp4[i+width]);
+        close[n]= green(temp3.pixels[i+width]);
         n=n+1;
-        close[n]= blue(temp4[i+width]);
+        close[n]= blue(temp3.pixels[i+width]);
         n=n+1;
-        close[n]= red(temp4[i+width+1]);
+        close[n]= red(temp3.pixels[i+width+1]);
         n=n+1;
-        close[n]= green(temp4[i+width+1]);
+        close[n]= green(temp3.pixels[i+width+1]);
         n=n+1;
-        close[n]= blue(temp4[i+width+1]);
+        close[n]= blue(temp3.pixels[i+width+1]);
 
         float ared =(close[0]+close[3]+close[6]+close[9]+close[12]+close[15]+close[18]+close[21]+close[24])/9;
         float agreen =(close[1]+close[4]+close[7]+close[10]+close[13]+close[16]+close[19]+close[22]+close[25])/9;
@@ -83,7 +78,7 @@ class RadialBlur {
         int r=int(ared);
         int g=int(agreen);
         int b=int(ablue);
-        temp[i]=color(r, g, b);
+        temp.pixels[i]=color(r, g, b);
       }
     }
 

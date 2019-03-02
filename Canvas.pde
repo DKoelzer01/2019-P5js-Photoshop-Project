@@ -22,10 +22,7 @@ class Canvas {
   }
 
   void newCanvas() {
-    pushMatrix();
-    translate(width/4, height/4);
-    objs.add(new Thing(dx, dy, (dx2-dx), (dy2-dy), 255));
-    popMatrix();
+    objs.add(new Thing(dx, dy, w, h, 255));
   }
 
   void del() {
@@ -51,7 +48,7 @@ class Thing {
     this.y1 = 0;
     this.x2 = width/2;
     this.y2 = height/2;
-    this.img = new PImage();
+    this.img = new PImage(x2,y2);
   }
 
   Thing(int x1, int x2, int y1, int y2, color c) {

@@ -6,15 +6,22 @@ class MainScreen {
   Canvas c;
   Layer layer;
   Filters f;
+  threadA lay = new threadA();
   PImage[] Tools = new PImage[11];
   String[] ToolsFuncs = {"transform", "boxselect", "brush", "colorpicker", "eraser", "gradient", "wand", "textbox", "recT", "elli", "poly"};
   String[] filea = new String[] {"Open", "Save", "New", "Exit"};
-  String[] edita= new String[] {"Transform", "Paste", "Fill"};
-  String[] filtera = new String[] {"Radial Blur", "Color Filter", "Average", "Invert", "Greyscale","Mirror X","Mirror Y","Red Overlay","Green Overlay","Blue Overlay","Rotate"};
+  String[] edita= new String[] {"Fill"};
+  String[] filtera = new String[] {"Radial Blur", "Color Filter", "Average", "Invert", "Greyscale", "Mirror X", "Mirror Y", "Red Overlay", "Green Overlay", "Blue Overlay", "Rotate"};
   String[] fileFuncs = new String[] {"open", "commit", "newFile", "quit"};
-  String[] editFuncs = new String[] {"trans", "paste", "selectionFill"};
-  String[] filterFuncs = new String[] {"blur", "filt", "averageFilter", "invert", "greyscale","mirrorXF","mirrorYF","fred","fgreen","fblue","rotat"};
+  String[] editFuncs = new String[] {"selectionFill"};
+  String[] filterFuncs = new String[] {"blur", "filt", "averageFilter", "invert", "greyscale", "mirrorXF", "mirrorYF", "fred", "fgreen", "fblue", "rotat"};
 
+  void setB() {
+    println(width, height);
+    c.setSize(width/2, height/2); 
+    layer = new Layer();
+    c.objs.add(new Thing());
+  }
 
   void MainScreenSetup() {
     Tools[0] = loadImage("assets/Transform.PNG");
@@ -33,26 +40,13 @@ class MainScreen {
     this.file = new Dropdown(5, 5, 35, 20, filea, 180, fileFuncs);
     this.edit = new Dropdown(40, 5, 70, 20, edita, 180, editFuncs);
     this.filter = new Dropdown(75, 5, 115, 20, filtera, 180, filterFuncs);
-    thread("layerSetupDumbThing");
-    f = new Filters();
-    m.c.objs.add(new Thing());
+    lay.start();
+    m.f = new Filters();
   }
 
   void render() {
-    try {
-      layerx = true;
-      background(120);
-      rec(0, 0, width-1, 30, 200);
-      layer.render();
-      c.render();
-      t.render();
-      f.render();
-      file.render("File", i);
-      edit.render("Edit", m);
-      filter.render("Filter", f);
-    } 
-    catch(Exception e) {
-    }
+    background(120);
+    rec(0, 0, width-1, 30, 200);
     if (frameRate > 40) {
       fill(0, 255, 0);
     } else if (frameRate > 20) {
@@ -62,6 +56,19 @@ class MainScreen {
     }
     text(round(frameRate), width-30, 16);
     noStroke();
-    rec(width-90,40,width-10,120,loadImage("assets/rgb.png"),100);
+    rec(width-90, 40, width-10, 120, loadImage("assets/rgb.png"), 100);
+    try {
+      layer.render();
+      t.toolWrapper();
+    } 
+    catch(Exception e) {
+    }
+    c.render();
+    t.render();
+    f.render();
+
+    file.render("File", i);
+    edit.render("Edit", m);
+    filter.render("Filter", f);
   }
 }
