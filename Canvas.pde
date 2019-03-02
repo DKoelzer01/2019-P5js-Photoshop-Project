@@ -59,7 +59,10 @@ class Thing {
     this.c = c;
     this.img = new PImage();
     rec(x1, x2, y1, y2, c);
-    this.img = get(0, 0, width/2, height/2);
+    pushMatrix();
+    translate(x2,y2);
+    this.img = get(x1, y1, x2, y2);
+    popMatrix();
   }
   
   Thing(int x1, int y1, int r, color c) {
