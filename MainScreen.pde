@@ -17,10 +17,10 @@ class MainScreen {
   String[] filterFuncs = new String[] {"blur", "averageFilter", "invert", "greyscale", "mirrorXF", "mirrorYF", "fred", "fgreen", "fblue", "rotat"};
 
   void setB() {
-    println(width, height);
     c.setSize(width/2, height/2); 
     layer = new Layer();
     c.objs.add(new Thing());
+    println("Finished Loading");
   }
 
   void MainScreenSetup() {
@@ -46,8 +46,9 @@ class MainScreen {
 
   void render() {
     background(120);
-    t.render();
     c.render();
+    t.render();
+
     rec(0, 0, width-1, 30, 200);
     if (frameRate > 40) {
       fill(0, 255, 0);
@@ -77,5 +78,8 @@ class MainScreen {
     catch(Exception e) {
     }
     rec(width-90, 40, width-10, 120, loadImage("assets/rgb.png"), 100);
+  }
+  void selectionFill() {
+  m.c.objs.add(new Thing(0,m.c.w,0,m.c.h,m.layer.col));
   }
 }

@@ -1,9 +1,10 @@
 class Toolbar {
   PImage[] sprites;
   String[] toolsFuncs;
+  threadB rectThread;
   ArrayList<Button> Tools;
   int x0, y0;
-  Boolean trans, sel, bru, col, era, grad, wand, tex, recT, elli, poly, shift, ctrl;
+  Boolean trans, sel, bru, col, era, grad, wand, tex, recT, elli, poly, shift, ctrl, ctrl2, transCheck;
   Toolbar(PImage[] input, String[] funcs) {
     this.sprites = input;
     this.toolsFuncs = funcs;
@@ -22,7 +23,12 @@ class Toolbar {
     } else {
       shift = false;
     }
-    if (mouseX>0 && mouseX<80 && mouseY>0&& mouseY<height-100) {
+    if (mouseX > width-100 ) {
+      ctrl2 = true;
+    } else {
+      ctrl2 = false;
+    }
+    if (mouseX < 80 || mouseY < 30) {
       ctrl = true;
     } else {
       ctrl = false;
@@ -31,12 +37,15 @@ class Toolbar {
     for (int i = 0; i < Tools.size(); i++) {
       Tools.get(i).render(this.sprites[i], toolsFuncs[i], this);
     }
+    transCheck = ctrl || ctrl2;
   }
+
+
 
   void toolWrapper() {
     if (trans) {
       ellipse(45, 55, 4, 4);
-      if (mousePressed && !m.t.ctrl) {
+      if (mousePressed && !transCheck) {
         (m.c.objs.get(m.layer.curLayer).x1) = mouseX - m.c.w;
         (m.c.objs.get(m.layer.curLayer).y1) = mouseY - m.c.h;
       }
@@ -73,6 +82,7 @@ class Toolbar {
     }
     if (recT) {
       ellipse(45, 335, 4, 4);
+      rectThread = new threadB();
     }
     if (elli) {
       ellipse(45, 370, 4, 4);

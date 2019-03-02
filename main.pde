@@ -23,6 +23,7 @@ int h = 400;
 String Stage;
 float ix, iy, iw, ih, d1, d2;
 int s = 0;
+
 void setup() {
   Stage = "Launcher";
   float w1 = displayWidth;
@@ -99,6 +100,12 @@ void mouseClicked() {
       loadPixels();
       m.layer.colp = m.layer.col;
       m.layer.col = pixels[(mouseY*width)+mouseX];
+    }
+    if (m.t.rectThread.x1 == 0 || m.t.rectThread.x2 == 0) {
+      m.t.rectThread.push(mouseX, mouseY);
+      if (m.t.rectThread.x1 != 0 && m.t.rectThread.x2 != 0) {
+        m.t.rectThread.run();
+      }
     }
   }
   catch(Exception e) {
