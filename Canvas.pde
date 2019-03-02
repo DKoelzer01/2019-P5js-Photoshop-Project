@@ -46,8 +46,8 @@ class Thing {
   Thing() {
     this.x1 = 0;
     this.y1 = 0;
-    this.x2 = width/2;
-    this.y2 = height/2;
+    this.x2 = m.c.w;
+    this.y2 = m.c.h;
     this.img = new PImage(x2,y2);
   }
 
@@ -78,8 +78,10 @@ class Thing {
     image(img, x1, y1, x2, y2);
   }
   
-  void sketch(int x, int y){
-    img.loadPixels();
-    img.pixels[(width*y)+x] = color(m.layer.col);
+  PImage sketch(int x, int y, color c){
+    PImage temp = img;
+    temp.loadPixels();
+    temp.pixels[(width*y)+x] = c;
+    return(temp);
   }
 }

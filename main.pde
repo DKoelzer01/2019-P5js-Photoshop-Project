@@ -100,33 +100,8 @@ void mouseClicked() {
       m.layer.colp = m.layer.col;
       m.layer.col = pixels[(mouseY*width)+mouseX];
     }
-    if (m.t.elli) {
-      m.t.x0 = mouseX;
-      m.t.y0 = mouseY;
-    }
-  } 
+  }
   catch(Exception e) {
-  }
-}
-int r;
-void mousePressed() {
-  try {
-    if (m.t.elli) {
-      r = round(dist(m.t.x0, m.t.y0, mouseX, mouseY));
-      fill (m.layer.col);
-      ellipse(mouseX, mouseY, r, r);
-    }
-  } 
-  catch (Exception e) {
-  }
-}
-void mouseReleased() {
-  try {
-    if (m.t.elli) {
-      m.c.objs.add(new Thing(mouseX, mouseY, r, m.layer.col));
-    }
-  } 
-  catch (Exception e) {
   }
 }
 

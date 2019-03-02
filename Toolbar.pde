@@ -2,7 +2,7 @@ class Toolbar {
   PImage[] sprites;
   String[] toolsFuncs;
   ArrayList<Button> Tools;
-  int x0,y0;
+  int x0, y0;
   Boolean trans, sel, bru, col, era, grad, wand, tex, recT, elli, poly, shift, ctrl;
   Toolbar(PImage[] input, String[] funcs) {
     this.sprites = input;
@@ -43,7 +43,7 @@ class Toolbar {
       if (keyCode == ENTER) {
         keyCode = 0;
         trans = false;
-        PImage temp = m.c.objs.get(m.layer.curLayer).img.get(m.c.dx,m.c.dy,m.c.w,m.c.h);
+        PImage temp = m.c.objs.get(m.layer.curLayer).img.get(0, 0, m.c.w, m.c.h);
         m.c.objs.get(m.layer.curLayer).img = temp;
       }
     }
@@ -53,7 +53,7 @@ class Toolbar {
     if (bru) {
       ellipse(45, 125, 4, 4);
       if (mousePressed) {
-        m.c.objs.get(m.layer.curLayer).sketch(mouseX, mouseY);
+        m.c.objs.get(m.layer.curLayer).img = m.c.objs.get(m.layer.curLayer).sketch(round(mouseX), round(mouseY), m.layer.col);
       }
     }
     if (col) {
@@ -80,9 +80,6 @@ class Toolbar {
     if (poly) {
       ellipse(45, 405, 4, 4);
     }
-
-    rec(10, height-10, 50, height-50, m.layer.colp);
-    rec(30, height-30, 70, height-70, m.layer.col);
   }
 
   void reset() {

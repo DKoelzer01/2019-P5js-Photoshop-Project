@@ -49,19 +49,27 @@ class Button {
   }
 
 
-
-
   void render() {
     buttonHov.set(buttons.indexOf(this), 0);
     rec(this.x1, this.y1, this.x2, this.y2, this.c);
     if ((mouseX >= x1 && mouseX <= x2) && (mouseY >= y1 && mouseY <= y2)) {
-      rec(x1, y1, x2, y2, color(this.r+100, this.g+100, this.b+100));
+      rec(x1-1, y1-1, x2+2, y2+2, color(this.r+100, this.g+100, this.b+100));
       buttonHov.set(buttons.indexOf(this), 1);
+    }
+  }
+  
+  void render(Button b) {
+    buttonHov.set(buttons.indexOf(b), 0);
+    rec(b.x1, b.y1, b.x2, b.y2, b.c);
+    if ((mouseX >= x1 && mouseX <= x2) && (mouseY >= y1 && mouseY <= y2)) {
+      rec(x1-1, y1-1, x2+2, y2+2, color(b.r+100, b.g+100, b.b+100));
+      buttonHov.set(buttons.indexOf(b), 1);
     }
   }
 
   void render(PImage img, String func, Object obj) {
     if ((mouseX >= x1 && mouseX <= x2) && (mouseY >= y1 && mouseY <= y2)) {
+      rec(this.x1-1,this.y1-1, this.x2+1, this.y2+1, img, color(0,40,180));
       buttonHov.set(buttons.indexOf(this), 1);
     }
     render(func, obj);

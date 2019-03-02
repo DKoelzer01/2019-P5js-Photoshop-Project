@@ -11,10 +11,10 @@ class MainScreen {
   String[] ToolsFuncs = {"transform", "boxselect", "brush", "colorpicker", "eraser", "gradient", "wand", "textbox", "recT", "elli", "poly"};
   String[] filea = new String[] {"Open", "Save", "New", "Exit"};
   String[] edita= new String[] {"Fill"};
-  String[] filtera = new String[] {"Radial Blur", "Color Filter", "Average", "Invert", "Greyscale", "Mirror X", "Mirror Y", "Red Overlay", "Green Overlay", "Blue Overlay", "Rotate"};
+  String[] filtera = new String[] {"Radial Blur", "Average", "Invert", "Greyscale", "Mirror X", "Mirror Y", "Red Overlay", "Green Overlay", "Blue Overlay", "Rotate"};
   String[] fileFuncs = new String[] {"open", "commit", "newFile", "quit"};
   String[] editFuncs = new String[] {"selectionFill"};
-  String[] filterFuncs = new String[] {"blur", "filt", "averageFilter", "invert", "greyscale", "mirrorXF", "mirrorYF", "fred", "fgreen", "fblue", "rotat"};
+  String[] filterFuncs = new String[] {"blur", "averageFilter", "invert", "greyscale", "mirrorXF", "mirrorYF", "fred", "fgreen", "fblue", "rotat"};
 
   void setB() {
     println(width, height);
@@ -46,6 +46,8 @@ class MainScreen {
 
   void render() {
     background(120);
+    t.render();
+    c.render();
     rec(0, 0, width-1, 30, 200);
     if (frameRate > 40) {
       fill(0, 255, 0);
@@ -55,20 +57,25 @@ class MainScreen {
       fill(255, 0, 0);
     }
     text(round(frameRate), width-30, 16);
+
+    f.render();
+    file.render("File", i);
+    edit.render("Edit", m);
+    filter.render("Filter", f);
     noStroke();
-    rec(width-90, 40, width-10, 120, loadImage("assets/rgb.png"), 100);
+
     try {
       layer.render();
+    } 
+    catch(Exception e) {
+    }
+    try {
+      rec(10, height-10, 50, height-50, m.layer.colp);
+      rec(30, height-30, 70, height-70, m.layer.col);
       t.toolWrapper();
     } 
     catch(Exception e) {
     }
-    c.render();
-    t.render();
-    f.render();
-
-    file.render("File", i);
-    edit.render("Edit", m);
-    filter.render("Filter", f);
+    rec(width-90, 40, width-10, 120, loadImage("assets/rgb.png"), 100);
   }
 }
